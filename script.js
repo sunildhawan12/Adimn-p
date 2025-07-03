@@ -13,7 +13,7 @@ async function verifyAdmin() {
 
   if (pass === "Sushil@55") {
     msg.textContent = "✅ Access granted. Loading data...";
-    msg.style.color = "#0984e3";
+    msg.style.color = "hsl(86, 92.40%, 46.30%)";
     await loadAdminData();
   } else {
     msg.textContent = "❌ गलत पासवर्ड!";
@@ -53,7 +53,7 @@ async function loadAdminData() {
     });
 
     msg.textContent = `✅ ${data.length} records loaded.`;
-    msg.style.color = "#00b894";
+    msg.style.color = "hsl(305, 100.00%, 36.10%)";
   } catch (err) {
     msg.textContent = "❌ Error loading data.";
     msg.style.color = "red";
