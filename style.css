@@ -1,0 +1,187 @@
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body Style */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Admin Container */
+.admin-box {
+  width: 100%;
+  max-width: 950px;
+  background-color: #fff;
+
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: auto;
+}
+
+/* Heading */
+.admin-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Password Input Box with Eye Icon */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.password-wrapper i {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Action Buttons */
+.admin-buttons {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.feedback-btn {
+  background-color: #00b894;
+  color: #fff;
+}
+
+.add-student-btn {
+  background-color: #0984e3;
+  color: #fff;
+}
+
+/* Message Text */
+#adminMsg {
+  font-size: 15px;
+  color: #555;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Table Style */
+#historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-family: Arial, sans-serif;
+}
+
+#historyTable thead th {
+  background-color: #026af1;
+  color: #fff;
+  font-weight: 800;
+  text-align: center;
+
+  border-bottom: 2px solid #dee2e6;
+}
+
+#historyTable tbody td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Highlighted Latest Row */
+#historyTable tr.highlight {
+  background-color: hsl(199, 100%, 70%);
+}
+
+/* Media Queries for Mobile */
+@media screen and (max-width: 468px) {
+  .admin-box {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .admin-header {
+    font-size: 20px;
+  }
+
+  button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  #historyTable th,
+  #historyTable td {
+    font-size: 13px;
+    padding: 6px;
+    border: 1px solid #ccc;
+  }
+}
+.home-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fdcb6e;
+  color: #2d3436;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #e17055;
+  color: white;
+}
+
