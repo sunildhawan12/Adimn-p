@@ -190,3 +190,36 @@ button:hover {
   color: white;
 }
 
+ #feedbackForm {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    #feedbackForm input, #feedbackForm textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    #feedbackForm button {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .back-btn {
+      background-color: #d63031;
+      color: white;
+      margin-top: 10px;
+    }
+
+    #thankyou {
+      margin-top: 10px;
+      font-weight: bold;
+    }
