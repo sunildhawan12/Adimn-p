@@ -47,7 +47,7 @@ async function loadAdminData() {
         <td>${row.name}<br>${row.phone}</td>
         <td>${row.date}<br>${row.time}</td>
         <td>${row.location.replace(",", "<br>")}</td>
-        <td>${row.status === "IN" ? "🟢 IN" : "🔴 OUT"}</td>
+        <td>${row.status === "IN" ? "🟢&nbsp;&nbsp;&nbsp; IN" : "🔴 OUT"}</td>
       `;
       tbody.appendChild(tr);
     });
