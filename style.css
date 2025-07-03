@@ -20,7 +20,8 @@ body {
 .admin-box {
   width: 100%;
   max-width: 950px;
-  background-color: #fff;
+  background-color: rgba(146, 140, 140, 0.288);
+  backdrop-filter: blur(15px);
 
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -111,7 +112,7 @@ button:hover {
   max-width: 100%;
   margin-top: 20px;
   background-color: #fff;
-  border-radius: 10px;
+  
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -126,14 +127,14 @@ button:hover {
 #historyTable thead th {
   background-color: #026af1;
   color: #fff;
-  font-weight: 800;
+  font-weight: 500;
   text-align: center;
 
   border-bottom: 2px solid #dee2e6;
 }
 
 #historyTable tbody td {
-  padding: 10px;
+  
   text-align: center;
   border-bottom: 1px solid #ccc;
   word-break: break-word;
@@ -160,15 +161,19 @@ button:hover {
     width: 100%;
     margin-right: 0;
   }
+   #historyTable th{
+    padding: 8px;
+   }
 
   #historyTable th,
   #historyTable td {
-    font-size: 13px;
-    padding: 6px;
-    border: 1px solid #ccc;
+    
+      border: 1px solid #756a6a;
+      font-size: 10px;
   }
 }
 .home-btn {
+  margin-top: 5px;
   display: inline-block;
   padding: 10px 20px;
   background-color: #fdcb6e;
