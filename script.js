@@ -13,7 +13,7 @@ async function verifyAdmin() {
 
   if (pass === "Sushil@55") {
     msg.textContent = "✅ Access granted. Loading data...";
-    msg.style.color = "hsl(86, 92.40%, 46.30%)";
+    msg.style.color = "#0984e3";
     await loadAdminData();
   } else {
     msg.textContent = "❌ गलत पासवर्ड!";
@@ -59,3 +59,85 @@ async function loadAdminData() {
     msg.style.color = "red";
   }
 }
+const idNameMap = {
+    "101": "Rahul",
+    "102": "Vishal",
+    "103": "Sushil",
+    "104": "Priya",
+    "105": "Anjali"
+  };
+
+  function toggleFeedback() {
+    document.getElementById("feedbackForm").style.display = "block";
+    document.querySelector(".admin-buttons").style.display = "none";
+    document.getElementById("scrollWrapper").style.display = "none";
+  }
+
+  function closeFeedback() {
+    document.getElementById("feedbackForm").style.display = "none";
+    document.querySelector(".admin-buttons").style.display = "flex";
+  }
+
+  async function sendFeedback() {
+    const id = document.getElementById("idInput").value.trim();
+    const message = document.getElementById("messageInput").value.trim();
+    const name = idNameMap[id];
+    const now = new Date();
+    const date = now.toLocaleDateString("en-GB");
+    const time = now.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+    const thankyou = document.getElementById("thankyou");
+
+    if (!id || !message) {
+      thankyou.textContent = "❗कृपया सभी फ़ील्ड भरें।";
+      thankyou.style.color = "red";
+      return;
+    }
+
+    if (!name) {
+      thankyou.textContent = "❌ मान्य ID नहीं मिली!";
+      thankyou.style.color = "red";
+      return;
+    }
+
+    thankyou.innerHTML = "🔄 कृपया प्रतीक्षा करें...";
+
+    const formData = new URLSearchParams();
+    formData.append("id", id);
+    formData.append("name", name);
+    formData.append("message", message);
+    formData.append("date", date);
+    formData.append("time", time);
+
+    const response = await fetch("https://script.google.com/macros/s/AKfycbwPGdp_k3_Vm0q_LniwZPWRozTSHru7lsI2r7rQSGDHZzHT3t4alxgEGrfAjhoZZjJf6A/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      thankyou.textContent = `Thanks! ${name}`;
+      thankyou.style.color = "green";
+      document.getElementById("idInput").value = "";
+      document.getElementById("messageInput").value = "";
+    } else {
+      thankyou.textContent = "❌ Data भेजने में त्रुटि हुई।";
+      thankyou.style.color = "red";
+    }
+  }
+
+  function togglePassword() {
+    const input = document.getElementById("adminPassInput");
+    const icon = document.getElementById("togglePass");
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+    }
+  }
+
+  function showFeatureMessage(msg) {
+    document.getElementById("featureMsg").textContent = msg;
+  }
