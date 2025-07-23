@@ -1,64 +1,80 @@
 function togglePassword() {
-  const passField = document.getElementById("adminPassInput");
-  passField.type = passField.type === "password" ? "text" : "password";
+  const input = document.getElementById("adminPassInput");
+  const icon = document.getElementById("togglePass");
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
 }
 function showFeatureMessage(msg) {
   const featureMsg = document.getElementById("featureMsg");
   featureMsg.textContent = "⚠️ " + msg;
 }
-
-async function verifyAdmin() {
-  const pass = document.getElementById("adminPassInput").value.trim();
+function verifyAdmin() {
+  const pass = document.getElementById("adminPassInput").value;
   const msg = document.getElementById("adminMsg");
 
-  if (pass === "Sushil@55") {
-    msg.textContent = "✅ Access granted. Loading data...";
-    msg.style.color = "#0984e3";
-    await loadAdminData();
+  if (pass === "admin123") {
+    msg.textContent = "🔄 Processing...";
+    msg.style.color = "orange";
+    localStorage.setItem("adminLoggedIn", "true"); // ✅ Save login state
+    loadAdminData();
   } else {
-    msg.textContent = "❌ गलत पासवर्ड!";
+    msg.textContent = "❌ Incorrect password!";
     msg.style.color = "red";
-    document.getElementById("historyTable").style.display = "none";
   }
 }
-
 async function loadAdminData() {
-  const tbody = document.querySelector("#historyTable tbody");
   const msg = document.getElementById("adminMsg");
-
-  tbody.innerHTML = "";
+  msg.textContent = "🔄 Processing...";
+  msg.style.color = "orange";
 
   try {
     const res = await fetch("https://script.google.com/macros/s/AKfycbz-3AhxhrO7q-vI4Mr2ELmryKemFSCCUXMcbXnXd1_QXYb-HyK8XPKmmPI5OOfQfa-Z/exec");
     const data = await res.json();
 
-    if (!data || data.length === 0) {
-      msg.textContent = "⚠️ No records found.";
-      msg.style.color = "#e17055";
-      return;
-    }
+    // Hide login panel and show history
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("historySection").style.display = "block";
+    msg.textContent = "";
 
-    document.getElementById("historyTable").style.display = "table";
+    const tbody = document.querySelector("#historyTable tbody");
+    tbody.innerHTML = "";
 
-    data.forEach(row => {
+    let totalUsers = new Set();
+    let totalAttendance = 0;
+
+    data.reverse().forEach((row, index) => {
       const tr = document.createElement("tr");
+      if (index === 0) tr.classList.add("highlight");
       tr.innerHTML = `
         <td>${row.id}</td>
         <td>${row.name}<br>${row.phone}</td>
         <td>${row.date}<br>${row.time}</td>
         <td>${row.location.replace(",", "<br>")}</td>
-        <td>${row.status === "IN" ? "🟢&nbsp;&nbsp;&nbsp; IN" : "🔴 OUT"}</td>
+        <td style="min-width: 100px;">${row.status === "IN" ? "🟢&nbsp;&nbsp;&nbsp; IN" : "🔴 OUT"}</td>
       `;
       tbody.appendChild(tr);
+
+      totalUsers.add(row.id);
+      if (row.status === "IN") totalAttendance++;
     });
 
-    msg.textContent = `✅ ${data.length} records loaded.`;
-    msg.style.color = "hsl(305, 100.00%, 36.10%)";
+    // ✅ Update count
+    document.getElementById("totalUsers").textContent = totalUsers.size;
+    document.getElementById("totalAttendance").textContent = totalAttendance;
+
   } catch (err) {
-    msg.textContent = "❌ Error loading data.";
+    msg.textContent = "❌ Failed to load data.";
     msg.style.color = "red";
   }
 }
+
 const idNameMap = {
     "101": "Rahul",
     "102": "Vishal",
@@ -66,17 +82,30 @@ const idNameMap = {
     "104": "Priya",
     "105": "Anjali"
   };
+// 📄 Download as PDF
+function downloadHistoryPDF() {
+  const element = document.getElementById("historySection");
+  html2pdf().from(element).save("Attendance_History.pdf");
+}
+  // 🔙 Logout & Back to Admin Panel//
+function backToAdminPanel() {
+  localStorage.removeItem("adminLoggedIn"); // ✅ Clear login state
+  document.getElementById("historySection").style.display = "none";
+  document.getElementById("adminPanel").style.display = "block";
+  document.getElementById("adminMsg").textContent = "";
+}
 
-  function toggleFeedback() {
-    document.getElementById("feedbackForm").style.display = "block";
-    document.querySelector(".admin-buttons").style.display = "none";
-    document.getElementById("scrollWrapper").style.display = "none";
-  }
+// 💬 Open Feedback Form
+function toggleFeedback() {
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("feedbackForm").style.display = "block";
+}
 
-  function closeFeedback() {
-    document.getElementById("feedbackForm").style.display = "none";
-    document.querySelector(".admin-buttons").style.display = "flex";
-  }
+// 💬 Close Feedback Form
+function closeFeedback() {
+  document.getElementById("feedbackForm").style.display = "none";
+  document.getElementById("adminPanel").style.display = "block";
+}
 
   async function sendFeedback() {
     const id = document.getElementById("idInput").value.trim();
@@ -115,7 +144,7 @@ const idNameMap = {
 
     if (response.ok) {
       thankyou.textContent = `Thanks! ${name}`;
-      thankyou.style.color = "green";
+      thankyou.style.color = " hsla(219, 93%, 45%, 1.00)";
       document.getElementById("idInput").value = "";
       document.getElementById("messageInput").value = "";
     } else {
@@ -141,3 +170,36 @@ const idNameMap = {
   function showFeatureMessage(msg) {
     document.getElementById("featureMsg").textContent = msg;
   }
+function filterTable() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const rows = document.querySelectorAll("#historyTable tbody tr");
+
+  rows.forEach(row => {
+    const regNo = row.cells[0]?.textContent.toLowerCase() || "";
+    const name = row.cells[1]?.textContent.toLowerCase() || "";
+
+    if (regNo.includes(input) || name.includes(input)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+}
+// 📅 Filter by Date
+function filterTableByDate() {
+  const inputDate = document.getElementById("dateFilterInput").value;
+  const rows = document.querySelectorAll("#historyTable tbody tr");
+
+  rows.forEach(row => {
+    const dateCell = row.cells[2]?.innerText.split("\n")[0]; // Extract date
+    row.style.display = dateCell === inputDate ? "" : "none";
+  });
+}
+
+// ✅ Auto-login on page load if already logged in
+window.onload = function () {
+  if (localStorage.getItem("adminLoggedIn") === "true") {
+    loadAdminData(); // 🚀 Auto-login
+  }
+};
+
