@@ -125,12 +125,15 @@ button:disabled {
   padding: 15px;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 #historyTable {
   width: 100%;
   border-collapse: collapse;
   margin: 0 auto 20px auto;
+  min-width: 600px; /* Ensure structure doesn't break on small screens */
 }
 
 #historyTable thead th {
@@ -138,6 +141,7 @@ button:disabled {
   color: white;
   font-weight: 600;
   padding: 10px;
+  white-space: nowrap;
 }
 
 #historyTable tbody td {
@@ -145,10 +149,19 @@ button:disabled {
   padding: 10px;
   text-align: center;
   word-break: break-word;
+  white-space: normal;
 }
 
 #historyTable tr.highlight {
   background-color: hsl(199, 100%, 70%);
+}
+
+#historyTable th:nth-child(5),
+#historyTable td:nth-child(5) {
+  min-width: 120px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 /* Feedback Form */
@@ -181,36 +194,49 @@ button:disabled {
   font-weight: bold;
   color: #00b894;
 }
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
 
-/* Responsive Table & Layout */
+#historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  min-width: 600px; /* Force scroll if screen is smaller */
+}
+
+#historyTable th,
+#historyTable td {
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Responsive Tweaks */
 @media screen and (max-width: 600px) {
   .admin-box {
-    padding: 15px;
-    margin: 10px;
+    padding: 10px;
   }
 
-  .admin-header {
-    font-size: 20px;
-  }
-
-  button {
-    width: 100%;
-    margin: 10px 0;
+  #historyTable {
+    font-size: 12px;
+    min-width: 650px; /* Force horizontal scroll */
   }
 
   #historyTable th,
   #historyTable td {
-    font-size: 12px;
-    padding: 10px;
+    font-size: 11px;
+    padding: 6px;
   }
 
-  .home-btn {
-    width: 100%;
-    text-align: center;
+  /* Optional: Wrap long columns like Main Status */
+  #historyTable th:nth-child(5),
+  #historyTable td:nth-child(5) {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 120px;
   }
-}
-#historyTable th:nth-child(5),
-#historyTable td:nth-child(5) {
-  min-width: 150px; /* You can increase if needed */
-  text-align: center;
 }
