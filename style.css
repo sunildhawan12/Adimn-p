@@ -125,16 +125,16 @@ button:disabled {
 }
 
 /* Table Section */
-#summary {
+ #summary {
   margin-top: 20px;
-  background-color: #fff;
+  background-color: #00b894;
+  color: #fff;
   padding: 15px;
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px #00b894;
   overflow-x: auto;
   max-width: 100%;
 }
-
 #historySection{
   width: 350px;
   padding: 5px;
