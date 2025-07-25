@@ -1,95 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <!-- html2canvas (for screenshot) -->
-
 </head>
 <body>
-
+  
+<!-- 🔐 Admin Panel -->
 <div class="admin-box" id="adminPanel">
   <h2>🛠 Admin Panel</h2>
-
   <div class="password-wrapper">
     <input type="password" id="adminPassInput" placeholder="Enter Admin Password">
     <i class="fas fa-eye" id="togglePass" onclick="togglePassword()"></i>
   </div>
-  <button onclick="verifyAdmin()" style="background-color:#6c5ce7; color:white; margin-top:10px;">🔓 Login</button>
-
+  <button onclick="verifyAdmin()" style="background-color:#6c5ce7; color:white;width: 270px; margin-top:10px;">🔓 Login</button>
+  
   <div class="admin-buttons">
     <a href="https://sunildhawan12.github.io/RUDRA-ACADEMY-THE-SCHOOL/"
-       style="display:inline-block;width: 290px; margin-top:10px; text-decoration:none; background:#d63031; color:white; padding:10px 20px; border-radius:5px;">
+       style="display:inline-block;width: 270px; margin-top:10px; text-decoration:none; background:#d63031; color:white; padding:10px 20px; border-radius:10px;">
        🔙 Back
     </a>
-    <button style="background-color: #27ae60; color: #fff;" onclick="toggleFeedback()">🆘 Help Center</button>
+  
+    <button onclick="toggleFeedback()" style="background-color: #00cec9; color: white;width: 270px;">🆘 Help Center</button>
   </div>
-
   <p id="adminMsg"></p>
 </div>
 
-<!-- 📊 Attendance Table Section -->
-<div id="historySection" style="display:none; text-align:center; height:auto; overflow:visible;">
+<!-- 📊 Attendance Section -->
+ <div id="historySection" style="display:none; text-align:center; height:auto; overflow:visible;">
 
-
-  <div id="summary" style="margin: 20px; text-align: center; font-weight: bold;">
-  👥 Total Users: <span id="totalUsers">0</span> |
-  🟢 Total Attendance (IN): <span id="totalAttendance">0</span>
-</div>
-
-
-  <!-- Search Box & Date Filter -->
-  <div style="margin-bottom: 15px;">
-    <input type="text" id="searchInput" placeholder="🔍 Search by ID.No OR Name..." 
-         oninput="filterTable()"
-         style="padding: 10px; width: 250px; border-radius: 6px; border: 1px solid #ccc;" />
-    <input type="date" id="dateFilterInput" onchange="filterTableByDate()"
-           style="padding:8px; margin-left:10px; border:1px solid #ccc; border-radius:5px;">
+  <h2>📊 Attendance History</h2>
+  <div id="summary">
+    👥 Total Users: <span id="totalUsers">0</span> |
+    🟢 Total Attendance (IN): <span id="totalAttendance">0</span>
   </div>
 
-  <!-- Attendance Table -->
-  
-<div class="table-wrapper">
-  <table id="historyTable" style="margin:auto; width:90%; margin-top:10px; ">
+  <input type="text" id="searchInput" placeholder="🔍 Search by ID or Name..." oninput="filterTable()">
+  <input type="date" id="searchInput" onchange="filterTableByDate()">
+
+  <div class="table-wrapper">
+ <div style="overflow-x: auto;" id="historyTable">
+      <table style="width: 300px; border-collapse: collapse; border: 1px solid rgb(243, 146, 82); font-size: 12px; border-radius: 5px;">
+        <thead>
+          <tr  style="background: #eeeb59; border: 1px solid black;">
+            
+            <th style="padding: 7px; border: 1px solid black;">ID.NO</th>
+            <th style="padding: 7px; border: 1px solid black;">Name/Phone</th>
+            <th style="padding: 10px; border: 1px solid black;">Date/Time</th>
+            <th style="padding: 10px; border: 1px solid black;">Location</th>
+            <th style="padding: -10px; border: 1px solid black; color: greenyellow;">Status</th>
+          </tr>
+          </tr>
+        </thead>
+        <tbody style="border: 1px solid black;" id="historyTableBody"></tbody>
+      </table>
+    </div>
+
     
-    <thead>
-      <tr >
-        <th>ID/No.</th>
-        <th>Name/Phone</th>
-        <th>Date/Time</th>
-        <th>Location</th>
-        <th style="padding: -5px;">Status</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <!-- Buttons -->
-  <div style="margin:20px;">
-    <button style="background-color: #00b894; color: #fff;" onclick="downloadHistoryPDF()">📥 Download PDF</button>
-    <button style="background-color: #e74c3c; color: #fff;" onclick="backToAdminPanel()">🔓 Logout</button>
+    
+</div>
+<div style="margin-top: 20px;">
+    <button onclick="downloadHistoryPDF()" style="background:#27ae60; color:white;">📥 Download PDF</button>
+    <button onclick="backToAdminPanel()" style="background:#e74c3c; color:white;">🔓 Logout</button>
   </div>
-
+  </div>
+  
 </div>
 
+ </div>
 
 <!-- 💬 Feedback Form -->
-  <div id="feedbackForm" style="text-align: center;">
-     <h3>🆘 Help Center</h3>
-    <input type="text" id="idInput" placeholder="Enter Your ID.No">
-    <textarea id="messageInput" placeholder="✍️ Describe your issue or question....."></textarea>
-    <button style="background-color: #026af1;" onclick="sendFeedback()">📨 Submit</button>
-    
-    <button style="background-color: #d63031;" onclick="closeFeedback()" class="back-btn">🔙 Back</button>
-    <p id="thankyou"></p>
-  </div>
-
+<div id="feedbackForm" style="margin-top: 150px;">
+  <h2 >🆘 Help Center</h2>
+  <input style="margin-top: 20px;" type="text" id="idInput" placeholder="Enter ID">
+  <textarea id="messageInput" placeholder="Your message..." style="width:100%; height:100px;"></textarea>
+  <p id="thankyou"></p>
+  <button onclick="sendFeedback()" style="background:#0984e3; color:white; width: 300px;">🆘 Send Message</button>
+  
+   <button onclick="backToAdminPanel()"style=" color:white; width: 300px;">🔙 Back to Admin Panel</button>
+</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
