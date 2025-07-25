@@ -39,15 +39,14 @@
     🟢 Total Attendance (IN): <span id="totalAttendance">0</span>
   </div>
 
-  <input type="text" id="searchInput" placeholder="🔍 Search by ID or Name..." oninput="filterTable()">
-  <input type="date" id="searchInput" onchange="filterTableByDate()">
-
+  <input style="border: none; margin: 10px; padding: 10px; border-radius: 5px;" type="text" id="searchInput" placeholder="🔍 Search by ID or Name..." oninput="filterTable()"><br>
+  Date : <input style="padding: 7px; border: 1px solid gray; border-radius: 5px; margin: 5px;" type="date" id="filterDate" onchange="filterByDate()" />
+ <button style="background-color: #d63031; color: #fff; padding: -3px;" onclick="document.getElementById('filterDate').value=''; filterByDate();">Clear Filter</button>
   <div class="table-wrapper">
  <div style="overflow-x: auto;" id="historyTable">
       <table style="width: 300px; border-collapse: collapse; border: 1px solid rgb(243, 146, 82); font-size: 12px; border-radius: 5px;">
         <thead>
           <tr  style="background: #eeeb59; border: 1px solid black;">
-            
             <th style="padding: 7px; border: 1px solid black;">ID.NO</th>
             <th style="padding: 7px; border: 1px solid black;">Name/Phone</th>
             <th style="padding: 10px; border: 1px solid black;">Date/Time</th>
