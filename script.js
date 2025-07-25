@@ -116,6 +116,18 @@ function downloadHistoryPDF() {
 }
 
 // 🔍 Search
+function filterByDate() {
+  const inputDate = document.getElementById("filterDate").value;
+  if (!inputDate) {
+    renderAdminTable(adminData); // Reset to full data
+    return;
+  }
+
+  const inputDateFormatted = new Date(inputDate).toLocaleDateString("en-GB"); // 'DD/MM/YYYY'
+
+  const filtered = adminData.filter(row => row.date === inputDateFormatted);
+  renderAdminTable(filtered);
+}
 function filterTable() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   document.querySelectorAll("#historyTable tbody tr").forEach(row => {
@@ -127,11 +139,24 @@ function filterTable() {
 }
 
 // 📅 Filter by Date
-function filterTableByDate() {
-  const inputDate = document.getElementById("dateFilterInput").value;
-  document.querySelectorAll("#historyTable tbody tr").forEach(row => {
-    const dateCell = row.cells[2]?.innerText.split("\n")[0];
-    row.style.display = dateCell === inputDate ? "" : "none";
+function convertToInputFormat(dateStr) {
+  const parts = dateStr.split("/"); // DD/MM/YYYY
+  if (parts.length !== 3) return "";
+  const [dd, mm, yyyy] = parts;
+  return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`; // YYYY-MM-DD
+}
+function filterByDate() {
+  const inputDate = document.getElementById("filterDate").value;
+  const rows = document.querySelectorAll("#historyTable tbody tr");
+
+  rows.forEach(row => {
+    const dateCell = row.cells[2]?.innerText.split("\n")[0]; // Extract date from "date\ntime"
+    const converted = convertToInputFormat(dateCell);
+    if (!inputDate || converted === inputDate) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
   });
 }
 
@@ -177,3 +202,29 @@ window.onload = function () {
     loadAdminData();
   }
 };
+function applyFilters() {
+  const inputText = document.getElementById("searchInput").value.toLowerCase();
+  const inputDate = document.getElementById("filterDate").value;
+
+  let filtered = [...adminData]; // Always start with full data
+
+  // 📅 Filter by Date
+  if (inputDate) {
+    const formattedDate = new Date(inputDate).toLocaleDateString("en-GB"); // 'DD/MM/YYYY'
+    filtered = filtered.filter(row => row.date === formattedDate);
+  }
+
+  // 🔍 Filter by Text
+  if (inputText) {
+    filtered = filtered.filter(row => {
+      return (
+        (row.id && row.id.toLowerCase().includes(inputText)) ||
+        (row.name && row.name.toLowerCase().includes(inputText)) ||
+        (row.phone && row.phone.toLowerCase().includes(inputText))
+      );
+    });
+  }
+
+  renderAdminTable(filtered);
+}
+
