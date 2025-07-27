@@ -110,10 +110,23 @@ async function loadAdminData() {
 }
 
 // 📥 Download PDF
-function downloadHistoryPDF() {
-  const element = document.getElementById("historySection");
-  html2pdf().from(element).save("Attendance_History.pdf");
+
+
+  function downloadHistoryPDF() {
+  const element = document.getElementById("historyTable"); // जिस div में टेबल है उसका ID
+
+  const opt = {
+    margin:       0.3,
+    filename:     'attendance.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }  // ये जरूरी है
+  };
+
+  html2pdf().set(opt).from(element).save();
 }
+
 
 // 🔍 Search
 function filterByDate() {
@@ -202,6 +215,7 @@ window.onload = function () {
     loadAdminData();
   }
 };
+
 function applyFilters() {
   const inputText = document.getElementById("searchInput").value.toLowerCase();
   const inputDate = document.getElementById("filterDate").value;
