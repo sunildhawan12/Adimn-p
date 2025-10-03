@@ -175,7 +175,7 @@ function filterByDate() {
 
 // 📤 Send Feedback
 const idNameMap = {
-  "101": "Rahul", "102": "Vishal", "103": "Sushil", "104": "Priya", "105": "Anjali"
+  "101": "Rahul", "102": "Vishal", "103": "Sushil", "104": "Priya", "105": "Anjali","Ajmer":"Yash"
 };
 async function sendFeedback() {
   const id = document.getElementById("idInput").value.trim();
@@ -201,7 +201,7 @@ async function sendFeedback() {
     method: "POST", body: formData
   });
   if (res.ok) {
-    thankyou.textContent = `Thanks! ${name}`;
+    thankyou.textContent = `Thanks! : ${name}`;
     thankyou.style.color = "#0984e3";
   } else {
     thankyou.textContent = "❌ Data भेजने में त्रुटि हुई।";
@@ -241,4 +241,5 @@ function applyFilters() {
 
   renderAdminTable(filtered);
 }
+
 
