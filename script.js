@@ -188,7 +188,7 @@ async function sendFeedback() {
     return;
   }
   if (!name) {
-    thankyou.textContent = "❌ मान्य ID नहीं मिली!";
+    thankyou.textContent = "❌ मान्य ID नहीं hai!";
     thankyou.style.color = "red";
     return;
   }
@@ -241,6 +241,7 @@ function applyFilters() {
 
   renderAdminTable(filtered);
 }
+
 
 
 
