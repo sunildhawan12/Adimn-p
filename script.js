@@ -175,7 +175,7 @@ function filterByDate() {
 
 // 📤 Send Feedback
 const idNameMap = {
-  "101": "Rahul", "102": "Vishal", "103": "Sushil", "104": "Priya", "105": "Anjali","Ajmer": "Yash"
+  "101": "Rahul", "102": "Vishal", "103": "Sushil", "104": "Priya", "105": "Anjali","106": "Yash"
 };
 async function sendFeedback() {
   const id = document.getElementById("idInput").value.trim();
@@ -241,6 +241,7 @@ function applyFilters() {
 
   renderAdminTable(filtered);
 }
+
 
 
 
