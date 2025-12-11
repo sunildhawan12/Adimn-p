@@ -1,250 +1,187 @@
-/* Global Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  /* 🎨 Theme & Global Styles */
+        :root {
+            --primary-color: #6c5ce7; /* Admin Purple */
+            --accent-color: #00cec9; /* Cyan Accent */
+            --danger-color: #d63031;
+            --success-color: #27ae60;
+            --bg-light: #F4F7F9;
+            --bg-dark: #FFFFFF;
+            --font-family: 'Poppins', sans-serif;
+        }
 
-/* Body Style */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #6dd5ed, #2193b0);
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#searchInput{
-  padding: 5px;
-  margin-left: 50px;
-  border-radius: 5px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.15);
-  margin: 5px;
-}
-/* Admin Container */
-.admin-box {
-  width: 100%;
-  max-width: 950px;
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.15);
-  text-align: center;
-}
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
-/* Heading */
-.admin-header {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
-}
+        /* 🔒 Admin Login Box */
+        .admin-box {
+            background-color: var(--bg-dark);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+        }
+        .admin-box h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            padding-right: 40px;
+        }
+        .password-wrapper .fas {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+        .admin-box button, .admin-box a {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .admin-box button:hover, .admin-box a:hover {
+            transform: translateY(-1px);
+        }
 
-/* Password Input with Eye Icon */
-.password-wrapper {
-  position: relative;
-  max-width: 330px;
-  margin: 0 auto 15px auto;
-}
+        /* 📊 History Dashboard */
+        #historySection {
+            background-color: var(--bg-dark);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+        
+        .summary-box {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .summary-card {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+            flex-basis: 48%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .summary-card span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: block;
+            margin-top: 5px;
+        }
+        .user-card { color: var(--primary-color); }
+        .attendance-card { color: var(--success-color); }
 
-.password-wrapper input {
-  width: 100%;
-  padding: 10px 40px 10px 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-.password-wrapper i {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-}
-/* Generic Button */
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 10px 5px 0 5px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease, color 0.3s ease;
-}
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        #searchInput, #filterDate {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .filter-controls button {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        /* Table Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        #historyTable h2 {
+            color: #333;
+            margin: 15px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        #historyTable table {
+            width: 100%;
+            min-width: 600px; 
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        #historyTable th, #historyTable td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        #historyTable thead tr {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        #historyTable tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
 
-button:hover {
-  opacity: 0.9;
-}
-
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-/* Specific Button Styles */
-.feedback-btn {
-  background-color: #00b894;
-  color: white;
-}
-.home-btn {
-  background-color: #fdcb6e;
-  color: #2d3436;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  padding: 10px 20px;
-}
-.home-btn:hover {
-  background-color: #e17055;
-  color: white;
-}
-.back-btn {
-  background-color: #d63031;
-  color: white;
-}
-.download-btn {
-  background-color: #0984e3;
-  color: white;
-}
-/* Message Text */
-#adminMsg {
-  font-size: 15px;
-  color: #555;
-  margin-top: 10px;
-}
-/* Table Section */
-  #summary {
-  margin-top: 20px;
-  background-color: #00b894;
-  color: #fff;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px #00b894;
-  overflow-x: auto;
-  max-width: 100%;
-}
-.table-wrapper{
-  width: 550px;
-  padding: 5px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  max-width: 900px;
-  margin: auto;
-  background-color: #fff;
-}
-#historyTable thead th {
-  background-color: #026af1;
-  color: white;
-}
-#historyTable tbody td {
-  border: 1px solid #ccc;
-  font-size: 11px;
-}
-#historyTable tr.highlight {
-  background-color: hsl(199, 100%, 70%);
-}
-#historyTable th:nth-child(5),
-#historyTable td:nth-child(5) {
-  min-width: 50px;
-  text-align: center;
-  word-wrap: break-word;
-  white-space: normal;
-}
-#historyTable th:nth-child(3),
-#historyTable td:nth-child(3) {
-  padding: 4px 6px;  /* kam padding */
-}
-/* Feedback Form */
-#feedbackForm {
-  display: none;
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 15px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-#feedbackForm input,
-#feedbackForm textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-#feedbackForm button {
-  background-color: #27ae60;
-  color: white;
-}
-#thankyou {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #00b894;
-}
-.admin-box,  #helpCenter, #feedbackForm {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  max-width: 700px;
-  margin: auto;
-  display: none;
-    }
-    .admin-box {
-      display: block;
-    }
-    .password-wrapper {
-      display: flex;
-      align-items: center;
-    }
-    .password-wrapper input {
-      flex: 1;
-      padding: 10px;
-      margin-right: 10px;
-    }
-    .admin-buttons button {
-      margin: 5px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-/* Optional: Style scroll bar (for modern browsers) */
-
-
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;     /* ⬅️ यह scroll enable करता है */
-  -webkit-overflow-scrolling: touch;
-  margin: 0 auto;
-}
-
-table {
-  width: 100%;
-  min-width: 750px;      /* ⬅️ यह table की minimum चौड़ाई सेट करता है */
-  border-collapse: collapse;
-  font-size: 12px;
-}
-
-th, td {
-  padding: 8px;
-  border: 1px solid #000;
-  text-align: center;
-  white-space: nowrap;  /* ⬅️ यह text को एक ही लाइन में रखता है */
-}
-
-@media screen and (max-width: 768px) {
-  table {
-    min-width: 300px;    /* ⬅️ Mobile के लिए थोड़ी कम width */
-  }
-
-  .table-wrapper {
-    padding: 0 5px;
-  }
-}
-
-
+        /* 💬 Feedback Form */
+        #feedbackForm {
+            background-color: var(--bg-dark);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid var(--accent-color);
+            display: none;
+        }
+        #feedbackForm h2 {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        #feedbackForm input[type="text"], #feedbackForm textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            resize: none;
+            font-family: var(--font-family);
+        }
