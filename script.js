@@ -1,4 +1,10 @@
+  // Initialize AOS for animations
+    AOS.init({
+        duration: 800,
+        once: true,
+    });
 
+   
 let lastVisibleSection = "adminPanel";
 
 // 🔐 Admin Login
@@ -241,8 +247,3 @@ function applyFilters() {
 
   renderAdminTable(filtered);
 }
-
-
-
-
-
